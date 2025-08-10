@@ -37,6 +37,9 @@ It depends. Default UI is modified GNOME Desktop Environment to be more user-fri
 Due to size being bigger than GitHub allows for release, the download is present on the Linexin's webpage only.<br>
 <a href="https://petexy.github.io/Linexin">Download Linexin</a>
 
+<h2>I can't install it on my [...] Virtual Machine</h2>
+Linexin supports only UEFI boot. If your Virtual Machine tries to install it with legacy boot, it will fail as it will try to install systemd-bootloader.
+
 <h2>Is it noob-friendly?</h2>
 Hell no brother, it's still non-immutable Arch. It's lazy-friendly.
 
