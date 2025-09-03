@@ -1,0 +1,21 @@
+- Added Linexin Center which:
+    - is an app that will handle all Linexin-specific apps 
+    - supports custom widgets written in Python if placed inside /usr/share/linexin/widgets/
+    - handles translations for every widget with a simple dictionary file
+    - has CLI option to run in a single-widget mode (linexin-center -w [widget_filename])
+    - disables possibility to close app when a system command is performed (e.g. pacman -Syu)
+    - (optional) has a package available to install called "linexin-center-dk" which helps to debug potential custom widgets
+- Linexin Updater is now integrated inside Linexin Center and:
+    - in multi-widget mode (default) shows updates that will be performed
+    - in single-widget mode it uses old(ish) UI that allows to update without using "checkupdates" (handled by Arch-updater Extension)
+- DaVinci Installer is now integrated inside Linexin Center
+- Affinity Installer is now integrated inside Linexin Center
+- Calamares has now been deprecated (thank God)
+- New system installer (Linexin Installer) has replaced Calamares as the System Installer
+- Linexin now supports fully automatically:
+    - Legacy Boot (Uses GRUB for both dual-boot and single-boot)
+    - UEFI dual-boot for both Windows and other Linux (Uses rEFInd)
+    - UEFI single-boot (Uses systemd-boot with timeout=0) 
+- AppimageLauncher has been deprecated. The system now uses Gear Lever for handling AppImages
+- Some flatpaks are now installed on the system if there's a connection to the internet present during installation (Zen Browser, Bottles, Faugus Launcher, Heroic Launcher, Gear Lever). If there's an update from v1.0.X to v1.1.0 present, the user will be asked if they want to install them.
+- Linexin now should support older NVIDIA cards than Turing (NV160/TUXXX), but it has not been tested properly.

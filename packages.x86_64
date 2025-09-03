@@ -132,25 +132,7 @@ os-prober
 #
 # Custom Packages
 
-
-#calamares-git
-#ckbcomp
-#boost-libs
-#hwinfo
-#kconfig
-#kcoreaddons
-#ki18n
-#kiconthemes
-#kpmcore
-#libpwquality
-#polkit-qt6
-#qt6-base
-#kcrash
-#kpackage
-#qt6-svg
-#python-jsonschema
-#python-yaml
-
+fastfetch
 linexin-installer
 gparted
 python
@@ -201,6 +183,7 @@ lib32-mesa
 xf86-video-nouveau
 linexin-desktop-presets
 spice-vdagent
+linexin-center
 
 #showtime
 showtime
@@ -211,4 +194,23 @@ gst-plugins-base
 gst-plugins-good
 gst-plugin-pipewire
 
+### Legacy ###
+
+#calamares-git
+#ckbcomp
+#boost-libs
+#hwinfo
+#kconfig
+#kcoreaddons
+#ki18n
+#kiconthemes
+#kpmcore
+#libpwquality
+#polkit-qt6
+#qt6-base
+#kcrash
+#kpackage
+#qt6-svg
+#python-jsonschema
+#python-yaml
 #appimagelauncher
