@@ -3,81 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="description" content="Download Linexin Linux. Pre-configured Arch-based Linux distribution built for creators and gamers. Easily install Affinity Suite , DaVinci Resolve on Linux. Made by Petexy / Linexy.">
-    
     <title>Linexin - Fast and Elegant OS</title>
     <link rel="icon" type="image/png" href="https://i.ibb.co/n8BPh4sh/logo.png">
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #18181b; /* A neutral dark gray */
-        }
-        .gradient-text {
-            background: linear-gradient(to right, #c084fc, #a78bfa); /* Purple gradient */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #18181b; }
+        .gradient-text { background: linear-gradient(to right, #c084fc, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass-effect { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(192, 132, 252, 0.3); } 50% { box-shadow: 0 0 40px rgba(192, 132, 252, 0.6); } }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-scale { opacity: 0; transform: scale(0.8); transition: all 0.8s ease-out; }
+        .reveal-scale.active { opacity: 1; transform: scale(1); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        
+        .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hover-lift:hover { transform: translateY(-12px); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3); }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-glow { animation: glow 2s ease-in-out infinite; }
+        
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #18181b; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.6s ease-out; }
+        .loading-spinner { width: 60px; height: 60px; border: 3px solid rgba(192, 132, 252, 0.3); border-top: 3px solid #c084fc; border-radius: 50%; animation: spin 1s linear infinite; }
+        
+        html { scroll-behavior: smooth; }
+        .ripple { position: relative; overflow: hidden; }
     </style>
 </head>
 <body class="text-gray-200">
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
 
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="flex items-center gap-x-3">
-                <img src="https://i.ibb.co/n8BPh4sh/logo.png" alt="Linexin Logo" class="h-10 w-10" data-translate-key="logo_alt" data-translate-type="alt">
-                <h1 class="text-2xl font-bold text-white">
-                    Linexin<span class="text-purple-400">.</span>
-                </h1>
+                <img src="https://i.ibb.co/n8BPh4sh/logo.png" alt="Linexin Logo" class="h-10 w-10 animate-float" data-translate-key="logo_alt" data-translate-type="alt">
+                <h1 class="text-2xl font-bold text-white">Linexin<span class="text-purple-400">.</span></h1>
             </a>
             <nav class="hidden md:flex space-x-8 items-center">
-                <a href="#features" class="hover:text-purple-400 transition-colors" data-translate-key="nav_features">Features</a>
-                <a href="#showcase" class="hover:text-purple-400 transition-colors" data-translate-key="nav_showcase">Showcase</a>
-                <a href="#faq" class="hover:text-purple-400 transition-colors" data-translate-key="nav_faq">FAQ</a>
-                <a href="#community" class="hover:text-purple-400 transition-colors" data-translate-key="nav_github">GitHub</a>
+                <a href="#features" class="hover:text-purple-400 transition-all duration-300 hover:scale-110" data-translate-key="nav_features">Features</a>
+                <a href="#showcase" class="hover:text-purple-400 transition-all duration-300 hover:scale-110" data-translate-key="nav_showcase">Showcase</a>
+                <a href="#faq" class="hover:text-purple-400 transition-all duration-300 hover:scale-110" data-translate-key="nav_faq">FAQ</a>
+                <a href="#community" class="hover:text-purple-400 transition-all duration-300 hover:scale-110" data-translate-key="nav_github">GitHub</a>
                 <div class="relative">
-                    <button id="lang-button-desktop" class="flex items-center hover:text-purple-400 transition-colors">
+                    <button id="lang-button-desktop" class="flex items-center hover:text-purple-400 transition-all duration-300 hover:scale-110">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.002 6.002 0 0111.336 0H4.332zM2.25 10a8.003 8.003 0 0115.5 0H2.25zm13.418 1.973a6.002 6.002 0 01-11.336 0h11.336z" clip-rule="evenodd" /></svg>
                         <span id="current-lang-desktop">EN</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                     </button>
                     <div id="lang-menu-desktop" class="hidden absolute right-0 mt-2 py-2 w-36 glass-effect rounded-lg shadow-xl">
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50" data-lang="en">English (EN)</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50" data-lang="pl">Polski (PL)</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50" data-lang="ru">Русский (RU)</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50" data-lang="es">Español (ES)</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50" data-lang="ua">Українська (UA)</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50" data-lang="de">Deutsch (DE)</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50 transition-all duration-200" data-lang="en">English (EN)</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50 transition-all duration-200" data-lang="fr">Français (FR)</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50 transition-all duration-200" data-lang="pt">Português (PT)</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50 transition-all duration-200" data-lang="zh">中文 (ZH)</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50 transition-all duration-200" data-lang="hi">हिन्दी (HI)</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50 transition-all duration-200" data-lang="pl">Polski (PL)</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50 transition-all duration-200" data-lang="ru">Русский (RU)</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50 transition-all duration-200" data-lang="es">Español (ES)</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50 transition-all duration-200" data-lang="ua">Українська (UA)</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-purple-600/50 transition-all duration-200" data-lang="de">Deutsch (DE)</a>
                     </div>
                 </div>
-                <a href="https://transfer.it/t/BL5jW6xjDJ4R" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-300 hover:scale-105" data-translate-key="nav_download">Download</a>
+                <a href="https://transfer.it/t/idjyDqpRXZRR" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 hover:scale-110 animate-glow" data-translate-key="nav_download">Download</a>
             </nav>
             <button id="mobile-menu-button" class="md:hidden text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-             <a href="#features" class="block py-2 hover:text-purple-400 transition-colors" data-translate-key="nav_features">Features</a>
-             <a href="#showcase" class="block py-2 hover:text-purple-400 transition-colors" data-translate-key="nav_showcase">Showcase</a>
-             <a href="#faq" class="block py-2 hover:text-purple-400 transition-colors" data-translate-key="nav_faq">FAQ</a>
-             <a href="#community" class="block py-2 hover:text-purple-400 transition-colors" data-translate-key="nav_github">GitHub</a>
-             <a href="https://transfer.it/t/BL5jW6xjDJ4R" class="block mt-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg text-center transition-transform duration-300 hover:scale-105" data-translate-key="nav_download">Download</a>
+             <a href="#features" class="block py-2 hover:text-purple-400" data-translate-key="nav_features">Features</a>
+             <a href="#showcase" class="block py-2 hover:text-purple-400" data-translate-key="nav_showcase">Showcase</a>
+             <a href="#faq" class="block py-2 hover:text-purple-400" data-translate-key="nav_faq">FAQ</a>
+             <a href="#community" class="block py-2 hover:text-purple-400" data-translate-key="nav_github">GitHub</a>
+             <a href="https://transfer.it/t/idjyDqpRXZRR" class="block mt-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg text-center" data-translate-key="nav_download">Download</a>
              <div class="mt-4 pt-4 border-t border-gray-700">
                 <a href="#" class="block py-2 text-gray-300 hover:text-purple-400" data-lang="en">English</a>
+                <a href="#" class="block py-2 text-gray-300 hover:text-purple-400" data-lang="fr">Français</a>
+                <a href="#" class="block py-2 text-gray-300 hover:text-purple-400" data-lang="pt">Português</a>
+                <a href="#" class="block py-2 text-gray-300 hover:text-purple-400" data-lang="zh">中文</a>
+                <a href="#" class="block py-2 text-gray-300 hover:text-purple-400" data-lang="hi">हिन्दी</a>
                 <a href="#" class="block py-2 text-gray-300 hover:text-purple-400" data-lang="pl">Polski</a>
                 <a href="#" class="block py-2 text-gray-300 hover:text-purple-400" data-lang="ru">Русский</a>
                 <a href="#" class="block py-2 text-gray-300 hover:text-purple-400" data-lang="es">Español</a>
@@ -88,16 +106,16 @@
     </header>
 
     <main>
-        <section class="min-h-screen flex items-center justify-center text-center pt-20" style="background-image: linear-gradient(rgba(24, 24, 27, 0.95), rgb(24, 24, 27)), url('https://i.ibb.co/1YhWJYzG/path7.png'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+        <section class="min-h-screen flex items-center justify-center text-center pt-20" style="background-image: linear-gradient(rgba(24, 24, 27, 0.95), rgb(24, 24, 27)), url('https://i.ibb.co/1YhWJYzG/path7.png'); background-size: contain; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
             <div class="container mx-auto px-6">
-                <h2 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4" data-translate-key="hero_title_1">Experience Computing Freedom</h2>
-                <h3 class="text-5xl md:text-7xl font-extrabold gradient-text mb-6" data-translate-key="hero_title_2">with Linexin OS.</h3>
-                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-10" data-translate-key="hero_subtitle">
+                <h2 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 reveal stagger-1" data-translate-key="hero_title_1">Experience Computing Freedom</h2>
+                <h3 class="text-5xl md:text-7xl font-extrabold gradient-text mb-6 reveal stagger-2" data-translate-key="hero_title_2">with Linexin OS.</h3>
+                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-10 reveal stagger-3" data-translate-key="hero_subtitle">
                     A lightweight, creator-focused Linux distribution that combines elegance with powerful performance. Use preconfigured Arch-based (btw) distro that is ready to use and easily install creative tools like Affinity suite or DaVinci Resolve.
                 </p>
-                <div class="flex justify-center space-x-4">
-                    <a href="https://transfer.it/t/BL5jW6xjDJ4R" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform duration-300 hover:scale-105 shadow-lg shadow-purple-500/20" data-translate-key="hero_button_download">Download Latest</a>
-                    <a href="#features" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform duration-300 hover:scale-105" data-translate-key="hero_button_learn">Learn More</a>
+                <div class="flex justify-center space-x-4 reveal stagger-4">
+                    <a href="https://transfer.it/t/idjyDqpRXZRR" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-110 shadow-lg shadow-purple-500/20 animate-glow" data-translate-key="hero_button_download">Download Latest</a>
+                    <a href="#features" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-110" data-translate-key="hero_button_learn">Learn More</a>
                 </div>
             </div>
         </section>
@@ -105,18 +123,18 @@
         <section id="features" class="py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-white" data-translate-key="features_title">Why Choose Linexin?</h2>
-                    <p class="text-gray-400 mt-2" data-translate-key="features_subtitle">Everything you need, and nothing you don't.</p>
+                    <h2 class="text-4xl font-bold text-white reveal" data-translate-key="features_title">Why Choose Linexin?</h2>
+                    <p class="text-gray-400 mt-2 reveal" data-translate-key="features_subtitle">Everything you need, and nothing you don't.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="p-8 rounded-xl glass-effect text-center transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="p-8 rounded-xl glass-effect text-center hover-lift reveal-scale stagger-1">
                         <div class="bg-red-500/20 text-red-400 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                         </div>
                         <h3 class="text-2xl font-bold text-white mb-3" data-translate-key="feature_1_title">Blazing Fast</h3>
                         <p class="text-gray-400" data-translate-key="feature_1_text">Built on a minimal base, Linexin is optimized for speed and responsiveness, booting up in seconds.</p>
                     </div>
-                    <div class="p-8 rounded-xl glass-effect text-center transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="p-8 rounded-xl glass-effect text-center hover-lift reveal-scale stagger-2">
                         <div class="bg-blue-500/20 text-blue-400 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z" />
@@ -125,7 +143,7 @@
                         <h3 class="text-2xl font-bold text-white mb-3" data-translate-key="feature_2_title">Creative Work</h3>
                         <p class="text-gray-400" data-translate-key="feature_2_text">With Affinity Installer and DaVinci Installer built-in, you can easily use creative tools after only a couple of clicks.</p>
                     </div>
-                    <div class="p-8 rounded-xl glass-effect text-center transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="p-8 rounded-xl glass-effect text-center hover-lift reveal-scale stagger-3">
                         <div class="bg-green-500/20 text-green-400 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                               <path stroke-linecap="round" stroke-linejoin="round" d="M2 10a4 4 0 014-4h12a4 4 0 014 4v4a4 4 0 01-4 4H6a4 4 0 01-4-4v-4z" />
@@ -143,108 +161,102 @@
         <section id="showcase" class="py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-white" data-translate-key="showcase_title">Beautifully Crafted Desktop</h2>
-                    <p class="text-gray-400 mt-2" data-translate-key="showcase_subtitle">An interface that's both powerful and a pleasure to use.</p>
+                    <h2 class="text-4xl font-bold text-white reveal" data-translate-key="showcase_title">Beautifully Crafted Desktop</h2>
+                    <p class="text-gray-400 mt-2 reveal" data-translate-key="showcase_subtitle">An interface that's both powerful and a pleasure to use.</p>
                 </div>
-                <div class="relative rounded-xl overflow-hidden shadow-2xl shadow-black/50 p-4 glass-effect">
-                    <img id="showcase-image" src="" alt="Linexin OS Screenshot" class="w-full h-auto rounded-lg transition-opacity duration-500"
-                         onerror="this.onerror=null;this.src='https://placehold.co/1200x700/1f2937/e5e7eb?text=Image+Not+Found';" data-translate-key="showcase_image_alt" data-translate-type="alt">
-                    
-                    <button id="prev-button" class="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-colors">
+                <div class="relative rounded-xl overflow-hidden shadow-2xl shadow-black/50 p-4 glass-effect reveal-scale">
+                    <img id="showcase-image" src="" alt="Linexin OS Screenshot" class="w-full h-auto rounded-lg transition-all duration-500 hover:scale-105" data-translate-key="showcase_image_alt" data-translate-type="alt">
+                    <button id="prev-button" class="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-300 hover:scale-110">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
                     </button>
-                    <button id="next-button" class="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-colors">
+                    <button id="next-button" class="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-300 hover:scale-110">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                     </button>
                 </div>
             </div>
-            <br>
-            <br>
+            <br><br>
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-white" data-translate-key="more_showcase_title">Change your style!</h2>
-                    <p class="text-gray-400 mt-2" data-translate-key="more_showcase_subtitle">Explore all pre-made presets for user interface.</p>
+                    <h2 class="text-4xl font-bold text-white reveal" data-translate-key="more_showcase_title">Change your style!</h2>
+                    <p class="text-gray-400 mt-2 reveal" data-translate-key="more_showcase_subtitle">Explore all pre-made presets for user interface.</p>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-                    <div class="rounded-xl overflow-hidden shadow-lg glass-effect">
-                        <img src="https://i.ibb.co/2YHmv8KD/default.png" alt="Screenshot 1" class="w-full h-auto object-cover" data-translate-key="more_showcase_img1_alt" data-translate-type="alt">
-                    <center>Linexin</center>
+                    <div class="rounded-xl overflow-hidden shadow-lg glass-effect hover-lift reveal-scale">
+                        <img src="https://i.ibb.co/2YHmv8KD/default.png" alt="Screenshot 1" class="w-full h-auto object-cover transition-transform duration-300 hover:scale-110">
+                        <center class="py-2 text-white font-semibold">Linexin</center>
                     </div>
-                    <div class="rounded-xl overflow-hidden shadow-lg glass-effect">
-                        <img src="https://i.ibb.co/qFPMp6fM/windowish.png" alt="Screenshot 2" class="w-full h-auto object-cover" data-translate-key="more_showcase_img2_alt" data-translate-type="alt">
-                     <center>Windows-like</center>
+                    <div class="rounded-xl overflow-hidden shadow-lg glass-effect hover-lift reveal-scale">
+                        <img src="https://i.ibb.co/qFPMp6fM/windowish.png" alt="Screenshot 2" class="w-full h-auto object-cover transition-transform duration-300 hover:scale-110">
+                        <center class="py-2 text-white font-semibold">Windows-like</center>
                     </div>
-                    <div class="rounded-xl overflow-hidden shadow-lg glass-effect">
-                        <img src="https://i.ibb.co/W4rtmM60/ubunexin.png" alt="Screenshot 3" class="w-full h-auto object-cover" data-translate-key="more_showcase_img3_alt" data-translate-type="alt">
-                     <center>Ubuntu-like</center>
+                    <div class="rounded-xl overflow-hidden shadow-lg glass-effect hover-lift reveal-scale">
+                        <img src="https://i.ibb.co/W4rtmM60/ubunexin.png" alt="Screenshot 3" class="w-full h-auto object-cover transition-transform duration-300 hover:scale-110">
+                        <center class="py-2 text-white font-semibold">Ubuntu-like</center>
                     </div>
-                    <div class="rounded-xl overflow-hidden shadow-lg glass-effect">
-                        <img src="https://i.ibb.co/5wHkTYZ/gnome.png" alt="Screenshot 4" class="w-full h-auto object-cover" data-translate-key="more_showcase_img4_alt" data-translate-type="alt">
-                     <center>Pure GNOME</center>
+                    <div class="rounded-xl overflow-hidden shadow-lg glass-effect hover-lift reveal-scale">
+                        <img src="https://i.ibb.co/5wHkTYZ/gnome.png" alt="Screenshot 4" class="w-full h-auto object-cover transition-transform duration-300 hover:scale-110">
+                        <center class="py-2 text-white font-semibold">Pure GNOME</center>
                     </div>
                 </div>
             </div>
-
-
-            
         </section>
 
         <section id="faq" class="py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-white" data-translate-key="faq_title">Frequently Asked Questions</h2>
+                    <h2 class="text-4xl font-bold text-white reveal" data-translate-key="faq_title">Frequently Asked Questions</h2>
                 </div>
                 <div class="max-w-3xl mx-auto space-y-4" id="faq-accordion">
-                    <div class="glass-effect rounded-lg overflow-hidden">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6 hover:bg-white/5 transition-colors duration-300">
+                    <div class="glass-effect rounded-lg overflow-hidden reveal stagger-1">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6 hover:bg-white/5 transition-all duration-300">
                             <span class="text-xl font-semibold text-white" data-translate-key="faq_q1">What is Linexin OS?</span>
-                            <svg class="faq-arrow w-6 h-6 text-purple-400 transition-transform transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="faq-arrow w-6 h-6 text-purple-400 transition-transform transform shrink-0 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="faq-answer hidden">
+                        <div class="faq-answer hidden transition-all duration-300">
                            <div class="p-6 pt-0">
                                 <p class="text-gray-300" data-translate-key="faq_a1">Linexin is a Linux distribution based on Arch Linux. It is designed to be a fast and user-friendly operating system, pre-configured for creative professionals and gamers.</p>
                            </div>
                         </div>
                     </div>
-                    <div class="glass-effect rounded-lg overflow-hidden">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6 hover:bg-white/5 transition-colors duration-300">
+                    <div class="glass-effect rounded-lg overflow-hidden reveal stagger-2">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6 hover:bg-white/5 transition-all duration-300">
                             <span class="text-xl font-semibold text-white" data-translate-key="faq_q2">Who is Linexin for?</span>
-                            <svg class="faq-arrow w-6 h-6 text-purple-400 transition-transform transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="faq-arrow w-6 h-6 text-purple-400 transition-transform transform shrink-0 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="faq-answer hidden">
+                        <div class="faq-answer hidden transition-all duration-300">
                             <div class="p-6 pt-0">
                                 <p class="text-gray-300" data-translate-key="faq_a2">Linexin is ideal for content creators who need easy access to tools like the Affinity suite and DaVinci Resolve, gamers looking for an optimized experience with Steam and Gamemode, and anyone who wants a beautiful and performant Arch-based system without the complex setup.</p>
                             </div>
                         </div>
                     </div>
-                     <div class="glass-effect rounded-lg overflow-hidden">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6 hover:bg-white/5 transition-colors duration-300">
+                     <div class="glass-effect rounded-lg overflow-hidden reveal stagger-3">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6 hover:bg-white/5 transition-all duration-300">
                             <span class="text-xl font-semibold text-white" data-translate-key="faq_q3">Is Linexin free to use?</span>
-                            <svg class="faq-arrow w-6 h-6 text-purple-400 transition-transform transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="faq-arrow w-6 h-6 text-purple-400 transition-transform transform shrink-0 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="faq-answer hidden">
+                        <div class="faq-answer hidden transition-all duration-300">
                             <div class="p-6 pt-0">
                                 <p class="text-gray-300" data-translate-key="faq_a3">Yes, absolutely. Linexin is a free and open-source project. You can download, use, modify, and distribute it freely. The project is supported by its community.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="glass-effect rounded-lg overflow-hidden">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6 hover:bg-white/5 transition-colors duration-300">
+                    <div class="glass-effect rounded-lg overflow-hidden reveal stagger-4">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6 hover:bg-white/5 transition-all duration-300">
                             <span class="text-xl font-semibold text-white" data-translate-key="faq_q4">What desktop environment does Linexin use?</span>
-                            <svg class="faq-arrow w-6 h-6 text-purple-400 transition-transform transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="faq-arrow w-6 h-6 text-purple-400 transition-transform transform shrink-0 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="faq-answer hidden">
+                        <div class="faq-answer hidden transition-all duration-300">
                             <div class="p-6 pt-0">
                                 <p class="text-gray-300" data-translate-key="faq_a4">Linexin uses a carefully customized version of the GNOME desktop environment. All extensions included in the distro can be easily disabled for a clean, vanilla GNOME experience. The Extension Manager is also included to help you find any extensions you might be missing. The interface has been streamlined to be clean, intuitive, and efficient, providing a great Arch-based user experience out of the box.</p>
                             </div>
                         </div>
                     </div>
-                     <div class="glass-effect rounded-lg overflow-hidden">
-                        <button class="faq-question w-full flex justify-between items-center text-left p-6 hover:bg-white/5 transition-colors duration-300">
+                     <div class="glass-effect rounded-lg overflow-hidden reveal stagger-5">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6 hover:bg-white/5 transition-all duration-300">
                             <span class="text-xl font-semibold text-white" data-translate-key="faq_q5">Is Linexin an immutable distro?</span>
-                            <svg class="faq-arrow w-6 h-6 text-purple-400 transition-transform transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="faq-arrow w-6 h-6 text-purple-400 transition-transform transform shrink-0 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="faq-answer hidden">
+                        <div class="faq-answer hidden transition-all duration-300">
                             <div class="p-6 pt-0">
                                 <p class="text-gray-300" data-translate-key="faq_a5">No, Linexin is not an immutable distro. However, it ships with a minimal number of system packages and no graphical package manager. Because of this, the average user is advised to use Flatpaks, while power users can still freely use pacman and the AUR.</p>
                             </div>
@@ -256,12 +268,12 @@
 
         <section id="community" class="py-20">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl font-bold text-white" data-translate-key="community_title">Open-Source Project</h2>
-                <p class="text-gray-400 mt-2 max-w-2xl mx-auto" data-translate-key="community_subtitle">
+                <h2 class="text-4xl font-bold text-white reveal" data-translate-key="community_title">Open-Source Project</h2>
+                <p class="text-gray-400 mt-2 max-w-2xl mx-auto reveal" data-translate-key="community_subtitle">
                     Linexin is built with fully open-sourced code. Everything you see after installation can be forked or modified from its GitHub page.
                 </p>
-                <div class="mt-8">
-                    <a href="https://github.com/Petexy/Linexin" target="_blank" rel="noopener noreferrer" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform duration-300 hover:scale-105 shadow-lg shadow-purple-500/20" data-translate-key="community_button">
+                <div class="mt-8 reveal">
+                    <a href="https://github.com/Petexy/Linexin" target="_blank" rel="noopener noreferrer" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-lg shadow-purple-500/20" data-translate-key="community_button">
                         Go to Linexin's GitHub
                     </a>
                 </div>
@@ -269,7 +281,7 @@
         </section>
     </main>
 
-    <footer class="border-t border-gray-800">
+    <footer class="border-t border-gray-800 reveal">
         <div class="container mx-auto px-6 py-8 text-center text-gray-400">
             <p data-translate-key="footer_copy">&copy; 2025 Linexin Project.</p>
             <p class="text-sm mt-2" data-translate-key="footer_love">Designed with ❤️ for the open-source community.</p>
@@ -277,7 +289,6 @@
     </footer>
 
     <script>
-        // --- Translations Object ---
         const translations = {
             'en': {
                 page_title: "Linexin - Fast and Elegant OS",
@@ -322,7 +333,7 @@
                 footer_copy: "&copy; 2025 Linexin Project.",
                 footer_love: "Designed with ❤️ for the open-source community."
             },
-            'pl': {
+                        'pl': {
                 page_title: "Linexin - Szybki i Elegancki System Operacyjny",
                 logo_alt: "Logo Linexin",
                 nav_features: "Funkcje",
@@ -536,23 +547,211 @@
                 community_button: "Zu Linexins GitHub gehen",
                 footer_copy: "&copy; 2025 Linexin Projekt.",
                 footer_love: "Mit ❤️ für die Open-Source-Community entworfen."
+            },
+            'fr': {
+                page_title: "Linexin - Système d'Exploitation Rapide et Élégant",
+                logo_alt: "Logo Linexin",
+                nav_features: "Fonctionnalités",
+                nav_showcase: "Galerie",
+                nav_faq: "FAQ",
+                nav_github: "GitHub",
+                nav_download: "Télécharger",
+                hero_title_1: "Découvrez la Liberté Informatique",
+                hero_title_2: "avec Linexin OS.",
+                hero_subtitle: "Une distribution Linux légère, axée sur les créateurs, qui combine élégance et performances puissantes.",
+                hero_button_download: "Télécharger la Dernière Version",
+                hero_button_learn: "En Savoir Plus",
+                features_title: "Pourquoi Choisir Linexin ?",
+                features_subtitle: "Tout ce dont vous avez besoin, et rien de plus.",
+                feature_1_title: "Ultra Rapide",
+                feature_1_text: "Construit sur une base minimale, Linexin est optimisé pour la vitesse et la réactivité.",
+                feature_2_title: "Travail Créatif",
+                feature_2_text: "Avec les installateurs Affinity et DaVinci intégrés, vous pouvez facilement utiliser des outils créatifs.",
+                feature_3_title: "Prêt pour le Gaming",
+                feature_3_text: "Livré avec Steam, gamescope et gamemode préinstallés.",
+                showcase_title: "Bureau Magnifiquement Conçu",
+                showcase_subtitle: "Une interface à la fois puissante et agréable à utiliser.",
+                showcase_image_alt: "Capture d'écran de Linexin OS",
+                more_showcase_title: "Changez votre style !",
+                more_showcase_subtitle: "Explorez tous les préréglages créés pour l'interface utilisateur.",
+                faq_title: "Questions Fréquemment Posées",
+                faq_q1: "Qu'est-ce que Linexin OS ?",
+                faq_a1: "Linexin est une distribution Linux basée sur Arch Linux, conçue pour être rapide et conviviale.",
+                faq_q2: "À qui s'adresse Linexin ?",
+                faq_a2: "Linexin est idéal pour les créateurs de contenu qui ont besoin d'un accès facile à des outils comme la suite Affinity et DaVinci Resolve.",
+                faq_q3: "Linexin est-il gratuit ?",
+                faq_a3: "Oui, absolument. Linexin est un projet gratuit et open-source.",
+                faq_q4: "Quel environnement de bureau utilise Linexin ?",
+                faq_a4: "Linexin utilise une version soigneusement personnalisée de l'environnement de bureau GNOME.",
+                faq_q5: "Linexin est-il une distribution immuable ?",
+                faq_a5: "Non, Linexin n'est pas une distribution immuable.",
+                community_title: "Projet Open-Source",
+                community_subtitle: "Linexin est construit avec du code entièrement open-source.",
+                community_button: "Aller au GitHub de Linexin",
+                footer_copy: "&copy; 2025 Projet Linexin.",
+                footer_love: "Conçu avec ❤️ pour la communauté open-source."
+            },
+            'pt': {
+                page_title: "Linexin - Sistema Operacional Rápido e Elegante",
+                logo_alt: "Logo do Linexin",
+                nav_features: "Recursos",
+                nav_showcase: "Galeria",
+                nav_faq: "FAQ",
+                nav_github: "GitHub",
+                nav_download: "Baixar",
+                hero_title_1: "Experimente a Liberdade Computacional",
+                hero_title_2: "com Linexin OS.",
+                hero_subtitle: "Uma distribuição Linux leve, focada em criadores, que combina elegância com performance poderosa.",
+                hero_button_download: "Baixar a Mais Recente",
+                hero_button_learn: "Saiba Mais",
+                features_title: "Por Que Escolher Linexin?",
+                features_subtitle: "Tudo que você precisa, e nada que não precisa.",
+                feature_1_title: "Extremamente Rápido",
+                feature_1_text: "Construído em uma base mínima, Linexin é otimizado para velocidade e responsividade.",
+                feature_2_title: "Trabalho Criativo",
+                feature_2_text: "Com os instaladores Affinity e DaVinci integrados, você pode facilmente usar ferramentas criativas.",
+                feature_3_title: "Pronto para Jogos",
+                feature_3_text: "Vem pré-empacotado com Steam, gamescope e gamemode.",
+                showcase_title: "Desktop Lindamente Criado",
+                showcase_subtitle: "Uma interface que é tanto poderosa quanto prazerosa de usar.",
+                showcase_image_alt: "Captura de tela do Linexin OS",
+                more_showcase_title: "Mude seu estilo!",
+                more_showcase_subtitle: "Explore todas as predefinições criadas para a interface do usuário.",
+                faq_title: "Perguntas Frequentes",
+                faq_q1: "O que é o Linexin OS?",
+                faq_a1: "Linexin é uma distribuição Linux baseada no Arch Linux, projetado para ser rápido e amigável ao usuário.",
+                faq_q2: "Para quem é o Linexin?",
+                faq_a2: "Linexin é ideal para criadores de conteúdo que precisam de acesso fácil a ferramentas como o pacote Affinity e DaVinci Resolve.",
+                faq_q3: "O Linexin é gratuito?",
+                faq_a3: "Sim, absolutamente. Linexin é um projeto gratuito e de código aberto.",
+                faq_q4: "Qual ambiente de desktop o Linexin usa?",
+                faq_a4: "Linexin usa uma versão cuidadosamente personalizada do ambiente de desktop GNOME.",
+                faq_q5: "O Linexin é uma distribuição imutável?",
+                faq_a5: "Não, Linexin não é uma distribuição imutável.",
+                community_title: "Projeto de Código Aberto",
+                community_subtitle: "Linexin é construído com código totalmente open-source.",
+                community_button: "Ir para o GitHub do Linexin",
+                footer_copy: "&copy; 2025 Projeto Linexin.",
+                footer_love: "Projetado com ❤️ para a comunidade open-source."
+            },
+            'zh': {
+                page_title: "Linexin - 快速优雅的操作系统",
+                logo_alt: "Linexin 徽标",
+                nav_features: "特性",
+                nav_showcase: "展示",
+                nav_faq: "常见问题",
+                nav_github: "GitHub",
+                nav_download: "下载",
+                hero_title_1: "体验计算自由",
+                hero_title_2: "使用 Linexin OS。",
+                hero_subtitle: "一个轻量级、专注于创作者的 Linux 发行版，将优雅与强大性能相结合。",
+                hero_button_download: "下载最新版",
+                hero_button_learn: "了解更多",
+                features_title: "为什么选择 Linexin？",
+                features_subtitle: "您需要的一切，不需要的一个都没有。",
+                feature_1_title: "极速运行",
+                feature_1_text: "基于最小化基础构建，Linexin 针对速度和响应性进行了优化。",
+                feature_2_title: "创意工作",
+                feature_2_text: "内置 Affinity 安装器和 DaVinci 安装器，只需几次点击即可轻松使用创意工具。",
+                feature_3_title: "游戏就绪",
+                feature_3_text: "预装了 Steam、gamescope 和 gamemode。",
+                showcase_title: "精美制作的桌面",
+                showcase_subtitle: "一个既强大又使用愉快的界面。",
+                showcase_image_alt: "Linexin OS 截图",
+                more_showcase_title: "改变您的风格！",
+                more_showcase_subtitle: "探索所有为用户界面创建的预设配置。",
+                faq_title: "常见问题",
+                faq_q1: "什么是 Linexin OS？",
+                faq_a1: "Linexin 是基于 Arch Linux 的 Linux 发行版，被设计为快速且用户友好的操作系统。",
+                faq_q2: "Linexin 适合谁？",
+                faq_a2: "Linexin 非常适合需要轻松访问 Affinity 套件和 DaVinci Resolve 等工具的内容创作者。",
+                faq_q3: "Linexin 可以免费使用吗？",
+                faq_a3: "是的，绝对可以。Linexin 是一个免费开源项目。",
+                faq_q4: "Linexin 使用什么桌面环境？",
+                faq_a4: "Linexin 使用精心定制的 GNOME 桌面环境版本。",
+                faq_q5: "Linexin 是不可变发行版吗？",
+                faq_a5: "不，Linexin 不是不可变发行版。",
+                community_title: "开源项目",
+                community_subtitle: "Linexin 使用完全开源的代码构建。",
+                community_button: "访问 Linexin 的 GitHub",
+                footer_copy: "&copy; 2025 Linexin 项目。",
+                footer_love: "为开源社区用 ❤️ 设计。"
+            },
+            'hi': {
+                page_title: "Linexin - तेज़ और सुंदर ऑपरेटिंग सिस्टम",
+                logo_alt: "Linexin लोगो",
+                nav_features: "विशेषताएं",
+                nav_showcase: "प्रदर्शनी",
+                nav_faq: "सामान्य प्रश्न",
+                nav_github: "GitHub",
+                nav_download: "डाउनलोड",
+                hero_title_1: "कंप्यूटिंग स्वतंत्रता का अनुभव करें",
+                hero_title_2: "Linexin OS के साथ।",
+                hero_subtitle: "एक हल्का, रचनाकारों पर केंद्रित Linux वितरण जो सुंदरता को शक्तिशाली प्रदर्शन के साथ जोड़ता है।",
+                hero_button_download: "नवीनतम डाउनलोड करें",
+                hero_button_learn: "और जानें",
+                features_title: "Linexin क्यों चुनें?",
+                features_subtitle: "वह सब कुछ जो आपको चाहिए, और कुछ भी अतिरिक्त नहीं।",
+                feature_1_title: "अत्यधिक तेज़",
+                feature_1_text: "न्यूनतम आधार पर निर्मित, Linexin गति और प्रतिक्रियाशीलता के लिए अनुकूलित है।",
+                feature_2_title: "रचनात्मक कार्य",
+                feature_2_text: "अंतर्निहित Affinity इंस्टॉलर और DaVinci इंस्टॉलर के साथ।",
+                feature_3_title: "गेमिंग के लिए तैयार",
+                feature_3_text: "Steam, gamescope और gamemode के साथ पूर्व-पैकेज्ड आता है।",
+                showcase_title: "सुंदर रूप से तैयार डेस्कटॉप",
+                showcase_subtitle: "एक इंटरफ़ेस जो शक्तिशाली और उपयोग में आनंददायक दोनों है।",
+                showcase_image_alt: "Linexin OS स्क्रीनशॉट",
+                more_showcase_title: "अपनी शैली बदलें!",
+                more_showcase_subtitle: "उपयोगकर्ता इंटरफ़ेस के लिए बनाए गए सभी पूर्व-निर्मित प्रीसेट देखें।",
+                faq_title: "अक्सर पूछे जाने वाले प्रश्न",
+                faq_q1: "Linexin OS क्या है?",
+                faq_a1: "Linexin एक Linux वितरण है जो Arch Linux पर आधारित है।",
+                faq_q2: "Linexin किसके लिए है?",
+                faq_a2: "Linexin उन सामग्री निर्माताओं के लिए आदर्श है जिन्हें Affinity सूट जैसे उपकरणों की आवश्यकता है।",
+                faq_q3: "क्या Linexin उपयोग के लिए निःशुल्क है?",
+                faq_a3: "हाँ, बिल्कुल। Linexin एक निःशुल्क और ओपन-सोर्स प्रोजेक्ट है।",
+                faq_q4: "Linexin कौन सा डेस्कटॉप वातावरण उपयोग करता है?",
+                faq_a4: "Linexin GNOME डेस्कटॉप वातावरण का उपयोग करता है।",
+                faq_q5: "क्या Linexin एक अपरिवर्तनीय डिस्ट्रो है?",
+                faq_a5: "नहीं, Linexin एक अपरिवर्तनीय डिस्ट्रो नहीं है।",
+                community_title: "ओपन-सोर्स प्रोजेक्ट",
+                community_subtitle: "Linexin पूरी तरह से ओपन-सोर्स कोड के साथ बनाया गया है।",
+                community_button: "Linexin के GitHub पर जाएं",
+                footer_copy: "&copy; 2025 Linexin प्रोजेक्ट।",
+                footer_love: "ओपन-सोर्स समुदाय के लिए ❤️ के साथ डिज़ाइन किया गया।"
             }
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile menu toggle ---
+            const loadingOverlay = document.getElementById('loading-overlay');
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => loadingOverlay.style.display = 'none', 600);
+            }, 1000);
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.reveal, .reveal-scale').forEach(el => observer.observe(el));
+
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 
-            // --- Showcase Gallery ---
             const showcaseImage = document.getElementById('showcase-image');
             const prevButton = document.getElementById('prev-button');
             const nextButton = document.getElementById('next-button');
-            const images = ['https://i.ibb.co/GfwZ1x9S/Screenshot-From-2025-07-27-19-46-24.png', 'https://i.ibb.co/Qj6prcQr/Screenshot-From-2025-07-27-20-00-53.png', 'https://i.ibb.co/6cynj74Y/Screenshot-From-2025-07-27-20-06-24.png', 'https://i.ibb.co/6Rb8NhhQ/Screenshot-From-2025-07-27-20-16-48.png'];
+            const images = [
+                'https://i.ibb.co/pBSg0Jnj/Screenshot-From-2025-09-07-16-30-53.png',
+                'https://i.ibb.co/Qj6prcQr/Screenshot-From-2025-07-27-20-00-53.png',
+                'https://i.ibb.co/6cynj74Y/Screenshot-From-2025-07-27-20-06-24.png',
+                'https://i.ibb.co/6Rb8NhhQ/Screenshot-From-2025-07-27-20-16-48.png'
+            ];
             let currentIndex = 0;
+            
             function updateImage() {
                 if (showcaseImage) {
                     showcaseImage.style.opacity = '0';
@@ -562,44 +761,20 @@
                     }, 300);
                 }
             }
+            
             if (prevButton && nextButton) {
-                prevButton.addEventListener('click', () => { currentIndex = (currentIndex - 1 + images.length) % images.length; updateImage(); });
-                nextButton.addEventListener('click', () => { currentIndex = (currentIndex + 1) % images.length; updateImage(); });
-            }
-            if (showcaseImage) { updateImage(); }
-
-            // --- Language Switcher ---
-            const langButtonDesktop = document.getElementById('lang-button-desktop');
-            const langMenuDesktop = document.getElementById('lang-menu-desktop');
-            const allLangLinks = document.querySelectorAll('a[data-lang]');
-            const setLanguage = (lang) => {
-                if (!translations[lang]) return;
-                document.querySelectorAll('[data-translate-key]').forEach(el => {
-                    const key = el.getAttribute('data-translate-key');
-                    const type = el.getAttribute('data-translate-type');
-                    const translation = translations[lang][key];
-                    if (translation) {
-                        if (type === 'alt') { el.alt = translation; } 
-                        else if (key === 'footer_copy' || key === 'footer_love') { el.innerHTML = translation; } 
-                        else { el.innerText = translation; }
-                    }
+                prevButton.addEventListener('click', () => {
+                    currentIndex = (currentIndex - 1 + images.length) % images.length;
+                    updateImage();
                 });
-                document.title = translations[lang].page_title;
-                document.getElementById('current-lang-desktop').innerText = lang.toUpperCase();
-                localStorage.setItem('language', lang);
-                mobileMenu.classList.add('hidden');
-                langMenuDesktop.classList.add('hidden');
-            };
-            if(langButtonDesktop){ langButtonDesktop.addEventListener('click', (e) => { e.stopPropagation(); langMenuDesktop.classList.toggle('hidden'); }); }
-            allLangLinks.forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); const lang = link.getAttribute('data-lang'); setLanguage(lang); }); });
-            document.addEventListener('click', () => { if(langMenuDesktop && !langMenuDesktop.classList.contains('hidden')){ langMenuDesktop.classList.add('hidden'); } });
-            const savedLang = localStorage.getItem('language');
-            const browserLang = navigator.language.split('-')[0];
-            if(savedLang && translations[savedLang]) { setLanguage(savedLang); } 
-            else if (translations[browserLang]) { setLanguage(browserLang); } 
-            else { setLanguage('en'); }
+                nextButton.addEventListener('click', () => {
+                    currentIndex = (currentIndex + 1) % images.length;
+                    updateImage();
+                });
+            }
+            
+            if (showcaseImage) updateImage();
 
-            // --- FAQ Accordion ---
             const faqAccordion = document.getElementById('faq-accordion');
             if (faqAccordion) {
                 const questions = faqAccordion.querySelectorAll('.faq-question');
@@ -608,6 +783,15 @@
                         const answer = question.nextElementSibling;
                         const arrow = question.querySelector('.faq-arrow');
                         const isHidden = answer.classList.contains('hidden');
+                        
+                        questions.forEach(otherQuestion => {
+                            if (otherQuestion !== question) {
+                                const otherAnswer = otherQuestion.nextElementSibling;
+                                const otherArrow = otherQuestion.querySelector('.faq-arrow');
+                                otherAnswer.classList.add('hidden');
+                                otherArrow.classList.remove('rotate-180');
+                            }
+                        });
                         
                         if (isHidden) {
                             answer.classList.remove('hidden');
@@ -618,6 +802,64 @@
                         }
                     });
                 });
+            }
+
+            const langButtonDesktop = document.getElementById('lang-button-desktop');
+            const langMenuDesktop = document.getElementById('lang-menu-desktop');
+            const allLangLinks = document.querySelectorAll('a[data-lang]');
+            
+            const setLanguage = (lang) => {
+                if (!translations[lang]) return;
+                document.querySelectorAll('[data-translate-key]').forEach(el => {
+                    const key = el.getAttribute('data-translate-key');
+                    const type = el.getAttribute('data-translate-type');
+                    const translation = translations[lang][key];
+                    if (translation) {
+                        if (type === 'alt') { 
+                            el.alt = translation; 
+                        } else if (key === 'footer_copy' || key === 'footer_love') { 
+                            el.innerHTML = translation; 
+                        } else { 
+                            el.innerText = translation; 
+                        }
+                    }
+                });
+                document.title = translations[lang].page_title;
+                document.getElementById('current-lang-desktop').innerText = lang.toUpperCase();
+                localStorage.setItem('language', lang);
+                mobileMenu.classList.add('hidden');
+                langMenuDesktop.classList.add('hidden');
+            };
+            
+            if (langButtonDesktop) {
+                langButtonDesktop.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    langMenuDesktop.classList.toggle('hidden');
+                });
+            }
+            
+            allLangLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const lang = link.getAttribute('data-lang');
+                    setLanguage(lang);
+                });
+            });
+            
+            document.addEventListener('click', () => {
+                if (langMenuDesktop && !langMenuDesktop.classList.contains('hidden')) {
+                    langMenuDesktop.classList.add('hidden');
+                }
+            });
+            
+            const savedLang = localStorage.getItem('language');
+            const browserLang = navigator.language.split('-')[0];
+            if (savedLang && translations[savedLang]) {
+                setLanguage(savedLang);
+            } else if (translations[browserLang]) {
+                setLanguage(browserLang);
+            } else {
+                setLanguage('en');
             }
         });
     </script>
