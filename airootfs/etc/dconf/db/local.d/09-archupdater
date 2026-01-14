@@ -1,2 +1,0 @@
-[org/gnome/shell/extensions/arch-update]
-update-cmd='linexin-center -w a-system_updater.py'

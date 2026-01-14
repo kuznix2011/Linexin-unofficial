@@ -1,5 +1,0 @@
-[org/gnome/login-screen]
-picture-uri='file:///usr/share/backgrounds/gnome/gdm.svg'
-picture-options='zoom'
-primary-color='rgb(26,26,26)'
-secondary-color='rgb(26,26,26)'

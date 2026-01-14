@@ -184,7 +184,8 @@ xf86-video-nouveau
 linexin-desktop-presets
 spice-vdagent
 linexin-center
-kinexin-desktop
+#kinexin-desktop
+linexin-desktop
 
 #showtime
 showtime
